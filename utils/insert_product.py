@@ -9,6 +9,8 @@ from random import choice
 import django
 from django.conf import settings
 
+time1 = datetime.now()
+
 DJANGO_BASE_DIR = Path(__file__).parent.parent
 
 sys.path.append(str(DJANGO_BASE_DIR))
@@ -21,10 +23,14 @@ if __name__ == '__main__':
 
     from food_fact.models import Product
     from scraping import Date
-    status = ['Imported', 'Draft']
 
-    list_products = []
-    product = Date(1, 1)
+    status = ['Imported', 'Draft']
+    number_page = 1
+    number_products = 100
+
+list_products = []
+while True:
+    product = Date(number_page, number_products)
     for key, value in product.products().items():
         list_products.append(
             Product(
@@ -41,6 +47,21 @@ if __name__ == '__main__':
                 image_url = value['image_url'],
             )
             )
+        
+    for product in list_products:
+        _product_exist = Product.objects.filter(code=product.code).exists()
+        if _product_exist:
+            list_products.remove(product)
 
-    if len(list_products) > 0:
+    if (len(list_products) > 0 and len(list_products) < 100) or (len(list_products) == 0):
+        number_page += 1
+        number_products = 100 - len(list_products)
+    elif len(list_products) == 100:
         Product.objects.bulk_create(list_products)
+        break
+
+
+    #if len(list_products) > 0:
+    #Product.objects.bulk_create(list_products)
+
+print(datetime.now() - time1)

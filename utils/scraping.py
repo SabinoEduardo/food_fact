@@ -8,8 +8,8 @@ from datetime import datetime
 class Date:
     """
         class with all methods to acess the data of products
-        Apply recursivity, every time that to call the methods this class will be added a profuct in
-        dictionário of products with the information:
+        Apply recursivity, every time that to call the methods this class will be added a product in
+        dictionário of products with the information bellow:
 
             :Code : int
             :Barcode : str
@@ -20,7 +20,7 @@ class Date:
             :brands : str
 
         A funtion call other funtion to get all information of product.
-        The funtions will be called until the system to get all products for page.
+        The funtions will be called until the system to get all products of page.
 
         Using a conditional structure, will set a limit of 100 products to been colected for page.
 
@@ -153,7 +153,6 @@ class Date:
 
         """
         try:
-            url = 'https://world.openfoodfacts.org/'
             img_url = self.content_html.select_one('#og_image')['src']
             self.products_dict[f'{self.len_lista}']['image_url'] = img_url
         except TypeError:

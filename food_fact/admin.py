@@ -15,5 +15,3 @@ class AdminProduct(admin.ModelAdmin):
     ordering = ('id',)
     search_fields = ("code", "product_name",)
     search_help_text = "Pesquise pelo nome ou código do produto"
-
-    #   continuar a análise do site Admin
