@@ -12,7 +12,7 @@ def get_link_products(page):
     try:
         url = 'https://world.openfoodfacts.org/'
         page_html = requests.get(url+str(page))
-        content_html = BeautifulSoup(page_html.text, "lxml")
+        content_html = BeautifulSoup(page_html.text, "html.parser")
         for product in content_html.select('ul.products'):
             for p in product.select('a'):
                 if 'href' in p.attrs:
@@ -27,11 +27,12 @@ def get_link_products(page):
             f.write('\n')
         return list_links_product
 
-
+d1 = datetime.now()
 if __name__ == '__main__':
-    links = get_link_products(1)
+    links = get_link_products(2)
     if isinstance(links, list):
         for number, link in enumerate(links):
             print(f'Produto {number+1}: {link}')
     else:
         print(links)
+print(datetime.now() - d1)

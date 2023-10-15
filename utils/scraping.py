@@ -45,7 +45,7 @@ class Date:
                     self.products_dict[f'{self.len_lista}']['url'] = url
                     try:
                         page_html = requests.get(f'{url}')
-                        self.content_html = BeautifulSoup(page_html.content, 'lxml')
+                        self.content_html = BeautifulSoup(page_html.content, 'html.parser')
                         self.get_code()
                     except requests.ConnectionError as error:
                         with open('log.txt', 'a') as f:
@@ -156,14 +156,14 @@ class Date:
             img_url = self.content_html.select_one('#og_image')['src']
             self.products_dict[f'{self.len_lista}']['image_url'] = img_url
         except TypeError:
-            self.products_dict[f'{self.len_lista}']['image_url'] = "sabino"
+            self.products_dict[f'{self.len_lista}']['image_url'] = "Null"
         self.len_lista += 1
         self.products()
 
 
 a = datetime.now()
 if __name__ == '__main__':
-    products = Date(1, 2)
+    products = Date(2, 100)
 
     for id_product, product in products.products().items():
         print(f'Produto {int(id_product) + 1}')
