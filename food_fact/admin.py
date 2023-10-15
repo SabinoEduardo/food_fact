@@ -11,7 +11,7 @@ class AdminProduct(admin.ModelAdmin):
               "brands", "image_url"]
 
     list_display_links = ("id", "code",)
-    list_per_page = 100
+    list_per_page = 10
     ordering = ('id',)
     search_fields = ("code", "product_name",)
     search_help_text = "Pesquise pelo nome ou código do produto"
