@@ -114,8 +114,7 @@ class Date:
             :return: without return
         """
         try:
-            name_product = self.content_html.select_one('[itemscope] h1')
-            name_product = name_product.string
+            name_product = self.content_html.select_one('[itemscope] h1').string
             self.products_dict[f'{self.len_lista}']['product_name'] = name_product
         except AttributeError:
             self.products_dict[f'{self.len_lista}']['product_name'] = "Null"
@@ -163,7 +162,7 @@ class Date:
 
 a = datetime.now()
 if __name__ == '__main__':
-    products = Date(2, 100)
+    products = Date(2, 3)
 
     for id_product, product in products.products().items():
         print(f'Produto {int(id_product) + 1}')

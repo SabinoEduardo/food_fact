@@ -2,3 +2,4 @@
 ERROR: HTTPSConnectionPool(host='world.openfoodfacts.org', port=443): Max retries exceeded with url: /1 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000001B6D3812C90>: Failed to resolve 'world.openfoodfacts.org' ([Errno 11001] getaddrinfo failed)"))
 
 HTTPSConnectionPool(host='world.openfoodfacts.org', port=443): Max retries exceeded with url: //product/3760091727732/beurre-bio-de-cacahuetes-ethiquable (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x000001CA4A7E2810>, 'Connection to world.openfoodfacts.org timed out. (connect timeout=None)'))
+replace() argument 1 must be str, not Tagreplace() argument 1 must be str, not Tag
