@@ -64,15 +64,7 @@ while True:
     if (len(list_products) > 0 and len(list_products) < 100) or (len(list_products) == 0):
         number_page += 1
         number_products = 100 - len(list_products)
-        print()
-        print('sabino')
-        print('produtos', len(list_products))
     else:
-        print('oi')
-        print(len(list_products))
-        print()
         Product.objects.bulk_create(list_products)
         break
         
-
-#print(datetime.now() - time1)
