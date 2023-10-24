@@ -1,5 +1,16 @@
-'in <string>' requires string as left operand, not Tag'in <string>' requires string as left operand, not ResultSet'in <string>' requires string as left operand, not Tag'in <string>' requires string as left operand, not Tag'in <string>' requires string as left operand, not Tag'in <string>' requires string as left operand, not Tag'str' object cannot be interpreted as an integerreplace expected at least 2 arguments, got 12023/10/13 03:20:43 PM
-ERROR: HTTPSConnectionPool(host='world.openfoodfacts.org', port=443): Max retries exceeded with url: /1 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000001B6D3812C90>: Failed to resolve 'world.openfoodfacts.org' ([Errno 11001] getaddrinfo failed)"))
+24/10/2023 11:11:13
+Ocorreu um erro no arquivo c:\Users\bilso\meus_projetos\web_scraping\utils\request.py ao tentar acessar a URL('https://world.openfoodfacts.org/1')
+A página URL('https://world.openfoodfacts.org/1') demorou para responder. Verifica se a página esta funcionando.
 
-HTTPSConnectionPool(host='world.openfoodfacts.org', port=443): Max retries exceeded with url: //product/3760091727732/beurre-bio-de-cacahuetes-ethiquable (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x000001CA4A7E2810>, 'Connection to world.openfoodfacts.org timed out. (connect timeout=None)'))
-replace() argument 1 must be str, not Tagreplace() argument 1 must be str, not Tag
+24/10/2023 11:20:57
+Ocorreu um erro no arquivo c:\Users\bilso\meus_projetos\web_scraping\utils\request.py ao tentar acessar a URL('https://world.openfoodfacts.org/1')
+A página URL('https://world.openfoodfacts.org/1') demorou para responder. Verifica se a página esta funcionando.
+
+24/10/2023 11:21:39
+Ocorreu um erro no arquivo c:\Users\bilso\meus_projetos\web_scraping\utils\product.py ao tentar acessar a URL('https://world.openfoodfacts.org//product/3274080005003/eau-de-source-cristaline')
+A página URL('https://world.openfoodfacts.org//product/3274080005003/eau-de-source-cristaline') demorou para responder. Verifica se a página esta funcionando.
+
+24/10/2023 11:28:00
+Ocorreu um erro no arquivo c:\Users\bilso\meus_projetos\web_scraping\utils\request.py ao tentar acessar a URL('https://world.openfoodfacts.org/1')
+A página URL('https://world.openfoodfacts.org/1') demorou para responder. Verifica se a página esta funcionando.
+
