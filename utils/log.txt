@@ -1,6 +1,0 @@
-24/10/2023 11:00:14
-Ocorreu um erro no arquivo C:\Users\bilso\meus_projetos\web_scraping\utils\request.py ao tentar acessar a URL('https://world.openfoodfacts.org/1')
-
-24/10/2023 11:01:18
-Ocorreu um erro no arquivo C:\Users\bilso\meus_projetos\web_scraping\utils\request.py ao tentar acessar a URL('https://world.openfoodfacts.org/1')
-
