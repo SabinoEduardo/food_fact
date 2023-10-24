@@ -1,14 +1,13 @@
 # type: ignore
 import os
 import sys
+import asyncio
 from datetime import datetime
 from pathlib import Path
 from random import choice
 
 import django
 from django.conf import settings
-
-time1 = datetime.now()
 
 DJANGO_BASE_DIR = Path(__file__).parent.parent
 
@@ -18,24 +17,17 @@ settings.USE_TZ = False
 
 django.setup()
 
-if __name__ == '__main__':
+
+async def insert_in_to_db(*args, **kwargs):
+
+    list_products = list()
+    status = ['Imported', 'Draft']
+    products = kwargs
 
     from food_fact.models import Product
-    from scraping import Date
 
-    status = ['Imported', 'Draft']
+    for _ , value in products.items():
 
-    number_page = 1
-    number_products = 100
-
-list_products = []
-list_copia = []
-
-#print(datetime.now())
-while True:
-    product = Date(number_page, number_products)
-
-    for key, value in product.products().items():
         list_products.append(
             Product(
                 code = value['code'],
@@ -51,20 +43,5 @@ while True:
                 image_url = value['image_url'],
             )
             )
-
-    for product in list_products:
-        _product_exist = Product.objects.filter(product_name__exact=product.product_name).exists()
-        if _product_exist:
-            list_copia.append(product)
-
-    for prod_copia in list_copia:
-        if prod_copia in list_products:
-            list_products.remove(prod_copia)
-
-    if (len(list_products) > 0 and len(list_products) < 100) or (len(list_products) == 0):
-        number_page += 1
-        number_products = 100 - len(list_products)
-    else:
-        Product.objects.bulk_create(list_products)
-        break
-        
+    Product.objects.bulk_create(list_products)
+    return
