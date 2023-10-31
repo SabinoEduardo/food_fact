@@ -2,8 +2,7 @@
 
 class Date:
     """
-        class with all methods assincrons to acess the data of products.
-        Such method add one date in product dictionary. These date are:
+        This class create one object of products with the following datas:
 
             :url : str
             :Code : int
@@ -13,6 +12,9 @@ class Date:
             :categories : str
             :packaging : str
             :brands : str
+            :image_url :str
+
+        The functions this class return None
     """
 
     def __init__(self, url, content_html, position, products_dict):

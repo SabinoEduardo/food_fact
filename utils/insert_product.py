@@ -1,7 +1,6 @@
 # type: ignore
 import os
 import sys
-import asyncio
 from datetime import datetime
 from pathlib import Path
 from random import choice
@@ -18,15 +17,18 @@ settings.USE_TZ = False
 django.setup()
 
 
-async def insert_in_to_db(*args, **kwargs):
+def insert_in_to_db(dict_products):
+
+    """
+        This function insert in to database all objects created in scraping.py file that was falidated in valide.py file.
+    
+    """
 
     list_products = list()
     status = ['Imported', 'Draft']
-    products = kwargs
 
     from food_fact.models import Product
-
-    for _ , value in products.items():
+    for _ , value in dict_products.items():
 
         list_products.append(
             Product(

@@ -5,6 +5,7 @@ register = template.Library()
 
 @register.simple_tag
 def json_products(data):
+
     dict_product = dict()
     lista_products = list()
 
@@ -21,12 +22,16 @@ def json_products(data):
         dict_product['brands'] = value.brands
         dict_product['image_url'] = value.image_url
         lista_products.append(dict_product.copy())
+
     json_products = json.dumps(lista_products, indent=4, ensure_ascii=False)
+
     return json_products
 
 @register.simple_tag
 def json_one_product(data):
+
     dict_product = dict()
+    
     dict_product['code'] = data.code
     dict_product['barcode'] = data.barcode
     dict_product['status'] = data.status
@@ -39,6 +44,8 @@ def json_one_product(data):
     dict_product['brands'] = data.brands
     dict_product['image_url'] = data.image_url
     lista_products = [(dict_product.copy())]
+
     json_products = json.dumps(lista_products, indent=4, ensure_ascii=False)
+
     return json_products
 

@@ -22,11 +22,18 @@ def valida_product(prod):
 
     from food_fact.models import Product
 
+    copy_dictionario = dict()
+
     for key, value in prod.items():
         _product_exist = Product.objects.filter(
                 product_name__exact=value['product_name']
             ).exists()
         if _product_exist:
+            copy_dictionario[key] = value
+
+    for key, value in copy_dictionario.items():
+        if key in prod:
             prod.pop(key)
+            
     return prod
    
