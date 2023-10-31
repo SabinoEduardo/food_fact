@@ -1,0 +1,28 @@
+24/10/2023 11:58:30
+Ocorreu um erro no arquivo c:\Users\bilso\meus_projetos\web_scraping\utils\request.py ao tentar acessar a URL('https://world.openfoodfacts.org/1')
+A página URL('https://world.openfoodfacts.org/1') demorou para responder. Verifica se a página esta funcionando.
+
+24/10/2023 11:58:48
+Ocorreu um erro no arquivo c:\Users\bilso\meus_projetos\web_scraping\utils\request.py ao tentar acessar a URL('https://world.openfoodfacts.org/1')
+A página URL('https://world.openfoodfacts.org/1') demorou para responder. Verifica se a página esta funcionando.
+
+24/10/2023 11:59:08
+Ocorreu um erro no arquivo c:\Users\bilso\meus_projetos\web_scraping\utils\request.py ao tentar acessar a URL('https://world.openfoodfacts.org/2')
+A página URL('https://world.openfoodfacts.org/2') demorou para responder. Verifica se a página esta funcionando.
+
+24/10/2023 12:02:17
+Ocorreu um erro no arquivo c:\Users\bilso\meus_projetos\web_scraping\utils\product.py ao tentar acessar a URL('https://world.openfoodfacts.org//product/7622300315733/original-philadelphia-frischkase')
+A página URL('https://world.openfoodfacts.org//product/7622300315733/original-philadelphia-frischkase') demorou para responder. Verifica se a página esta funcionando.
+
+24/10/2023 12:06:29
+Ocorreu um erro no arquivo c:\Users\bilso\meus_projetos\web_scraping\utils\request.py ao tentar acessar a URL('https://world.openfoodfacts.org/2')
+A página URL('https://world.openfoodfacts.org/2') demorou para responder. Verifica se a página esta funcionando.
+
+31/10/2023 13:36:26
+Ocorreu um erro no arquivo C:\Users\bilso\meus_projetos\web_scraping\utils\product.py ao tentar acessar a URL('https://world.openfoodfacts.org//product/54491472/coca-cola-500ml')
+A pÃ¡gina URL('https://world.openfoodfacts.org//product/54491472/coca-cola-500ml') demorou para responder. Verifica se a pÃ¡gina esta funcionando.
+
+31/10/2023 16:06:36
+Ocorreu um erro no arquivo C:\Users\bilso\meus_projetos\web_scraping\utils\product.py ao tentar acessar a URL('https://world.openfoodfacts.org//product/3175681134935/gerble-sugar-free-lemon-yuzu-shortbread-132g-4-7oz')
+A pÃ¡gina URL('https://world.openfoodfacts.org//product/3175681134935/gerble-sugar-free-lemon-yuzu-shortbread-132g-4-7oz') demorou para responder. Verifica se a pÃ¡gina esta funcionando.
+

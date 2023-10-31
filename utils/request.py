@@ -1,38 +1,51 @@
-import requests
-from bs4 import BeautifulSoup
+# type: ignore
+
+import httpx
+import asyncio
 from datetime import datetime
+from bs4 import BeautifulSoup
 
 
-def get_link_products(page):
+async def get_urls_of_products(page, qtde_product):
+
     """
-    :param page: the number page of site open food.
-    :return: The list with links the products or error message if the site open food is out.
+        This function make the requisition of web page e return one list of links. If the page web not response, a function return None and launch one error. The error is save in log.txt file.
     """
+
     list_links_product = list()
+    url = 'https://world.openfoodfacts.org/'
     try:
-        url = 'https://world.openfoodfacts.org/'
-        page_html = requests.get(url+str(page))
-        content_html = BeautifulSoup(page_html.text, "html.parser")
-        for product in content_html.select('ul.products'):
-            for p in product.select('a'):
-                if 'href' in p.attrs:
-                    list_links_product.append(url + str(p.attrs['href']))
-        return list_links_product
-    
-    except requests.exceptions.ConnectionError as error:
-        with open('log.txt', 'a') as f:
-            date = datetime.now().strftime('%Y/%m/%d %I:%M:%S %p')
-            f.write(f'{str(date)}\n')
-            f.write(f'ERROR: {str(error)}\n')
-            f.write('\n')
-        return list_links_product
+        with httpx.Client() as client:
+            response = client.get(url+str(page)).text
+            content_html = BeautifulSoup(response, "html.parser")
 
-d1 = datetime.now()
+            for product in content_html.select('ul.products'):
+                for p in product.select('a'):
+                    if 'href' in p.attrs:
+                        list_links_product.append(url + str(p.attrs['href']))
+        return list_links_product[:qtde_product]
+        
+    except httpx.RequestError as exc:
+        with open('arquivo_de_log\log.txt', 'a', encoding='utf-8') as f:
+            f.write(str(datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
+            f.write(
+                f"\nOcorreu um erro no arquivo {__file__} ao tentar acessar a {exc.request.url!r}"
+                )
+            f.write(
+                f"\nA página {exc.request.url!r} demorou para responder. Verifica se a página esta funcionando."
+                )
+            f.write("\n")
+            f.write("\n")
+        return
+
+
 if __name__ == '__main__':
-    links = get_link_products(2)
-    if isinstance(links, list):
-        for number, link in enumerate(links):
-            print(f'Produto {number+1}: {link}')
+    a = datetime.now()
+    lista_url = asyncio.run(get_urls_of_products(2, 2))
+
+    if lista_url:
+        for i, p in enumerate(lista_url):
+            print(i, p)
     else:
-        print(links)
-print(datetime.now() - d1)
+        print(lista_url)
+    print(datetime.now() - a)

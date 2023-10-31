@@ -1,16 +1,10 @@
 # type: ignore
-import requests
-from bs4 import BeautifulSoup
-from request import get_link_products
-from datetime import datetime
-
 
 class Date:
     """
-        class with all methods to acess the data of products
-        Apply recursivity, every time that to call the methods this class will be added a product in
-        dictionário of products with the information bellow:
+        This class create one object of products with the following datas:
 
+            :url : str
             :Code : int
             :Barcode : str
             :quantity : str
@@ -18,45 +12,28 @@ class Date:
             :categories : str
             :packaging : str
             :brands : str
+            :image_url :str
 
-        A funtion call other funtion to get all information of product.
-        The funtions will be called until the system to get all products of page.
-
-        Using a conditional structure, will set a limit of 100 products to been colected for page.
-
+        The functions this class return None
     """
 
-    def __init__(self, page, quantity):
-        self.quantity_of_products = quantity
-        self.urls = get_link_products(page)
-        self.products_dict = dict()
-        self.len_lista = len(self.products_dict)
-        self.quantity = ""
-        self.content_html = ""
-        self.brand = ""
+    def __init__(self, url, content_html, position, products_dict):
+        self.url = url
+        self.position = position
+        self.products_dict = products_dict
+        self.content_html = content_html
+        
 
-    def products(self): 
-        # return: a dictionary with 100 product
-        if len(self.urls) > 0:
-            try:
-                if self.len_lista < self.quantity_of_products:
-                    self.products_dict[f'{self.len_lista}'] = {}
-                    url = self.urls[self.len_lista]
-                    self.products_dict[f'{self.len_lista}']['url'] = url
-                    try:
-                        page_html = requests.get(f'{url}')
-                        self.content_html = BeautifulSoup(page_html.content, 'html.parser')
-                        self.get_code()
-                    except requests.ConnectionError as error:
-                        with open('log.txt', 'a') as f:
-                            f.write(f'{str(error)}\n')
-            except TypeError as error:
-                with open('log.txt', 'a') as f:
-                    f.write(str(error))
-            else:
-                return self.products_dict
+    async def set_url(self):
+        """
+            Function add the url product in dictionary product
+            :return: without return
+        """
+        self.products_dict[self.position] = {}
+        self.products_dict[self.position]['url'] = self.url
+        return
 
-    def get_code(self):
+    async def get_code(self):
         """
             Function to get the code value of product
             :return: without return
@@ -64,12 +41,12 @@ class Date:
         try:
             code = self.content_html.select_one('span#barcode')
             code = int(code.text)
-            self.products_dict[f'{self.len_lista}']['code'] = code
+            self.products_dict[self.position]['code'] = code
         except AttributeError:
-            self.products_dict[f'{self.len_lista}']['code'] = 0
-        self.get_barcode()
+            self.products_dict[self.position]['code'] = 0
+        return
 
-    def get_barcode(self):
+    async def get_barcode(self):
         """
             Function to get the barcode of product
             :return: without return
@@ -77,96 +54,82 @@ class Date:
         try:
             value_barcode = self.content_html.select_one('#barcode_paragraph')
             barcode = (str(value_barcode.text).replace('Barcode: ', '').strip()).replace(' ', '')
-            self.products_dict[f'{self.len_lista}']['barcode'] = barcode
+            self.products_dict[self.position]['barcode'] = barcode
         except AttributeError:
-            self.products_dict[f'{self.len_lista}']['barcode'] = "Null"
-        self.get_quantity()
+            self.products_dict[self.position]['barcode'] = "Null"
+        return
 
-    def get_quantity(self):
+    async def get_quantity(self):
         """
             Function to get the quantity of product.
             :return: without return
         """
         try:
-            self.quantity = self.content_html.select_one('#field_quantity_value')
-            self.products_dict[f'{self.len_lista}']['quantity'] = self.quantity.string
+            quantity = self.content_html.select_one('#field_quantity_value').text
+            self.products_dict[self.position]['quantity'] = quantity
         except AttributeError:
-            self.products_dict[f'{self.len_lista}']['quantity'] = "Null"
-        self.get_brands()
+            self.products_dict[self.position]['quantity'] = "Null"
+        return
 
 
-    def get_brands(self):
+    async def get_brands(self):
         """
             Function to get the brand of product.
             :return: without return
-
         """
         try:
-            self.brand = self.content_html.select_one('#field_brands a')
-            self.products_dict[f'{self.len_lista}']['brand'] = self.brand.string
+            brand = self.content_html.select_one('#field_brands a').text
+            self.products_dict[self.position]['brand'] = brand
         except AttributeError:
-            self.products_dict[f'{self.len_lista}']['brand'] = "Null"
-        self.config_name()
+            self.products_dict[self.position]['brand'] = "Null"
+        return
 
-    def config_name(self):
+    async def config_name(self):
         """
             Function to get the name of product.
             :return: without return
         """
         try:
-            name_product = self.content_html.select_one('[itemscope] h1').string
-            self.products_dict[f'{self.len_lista}']['product_name'] = name_product
+            name_product = self.content_html.select_one('[itemscope] h1').text
+            self.products_dict[self.position]['product_name'] = name_product
         except AttributeError:
-            self.products_dict[f'{self.len_lista}']['product_name'] = "Null"
-        self.get_categories()
+            self.products_dict[self.position]['product_name'] = "Null"
+        return
 
-    def get_categories(self):
+    async def get_categories(self):
         """
             Function to get the categories of product.
             :return: without return
         """
         try:
             categories = self.content_html.select_one('.field_value#field_categories_value')
-            self.products_dict[f'{self.len_lista}']['categories'] = categories.text
+            self.products_dict[self.position]['categories'] = categories.text
         except AttributeError:
-            self.products_dict[f'{self.len_lista}']['categories'] = "Null"
-        self.get_packaging()
+            self.products_dict[self.position]['categories'] = "Null"
+        return
 
-    def get_packaging(self):
+    async def get_packaging(self):
         """
             Function to get the packaging of product.
             :return: without return
         """
         try:
-            packaging = self.content_html.select_one('.field_value#field_packaging_value')
-            self.products_dict[f'{self.len_lista}']['packaging'] = packaging.text
+            packaging = self.content_html.select_one('.field_value#field_packaging_value').text
+            self.products_dict[self.position]['packaging'] = packaging
         except AttributeError:
-            self.products_dict[f'{self.len_lista}']['packaging'] = "Null"
-        self.get_image_url()
+            self.products_dict[self.position]['packaging'] = "Null"
+        return
 
-
-    def get_image_url(self):
+    async def get_image_url(self):
         """
             Function to get the image url of product.
             :return: without return
-
         """
         try:
             img_url = self.content_html.select_one('#og_image')['src']
-            self.products_dict[f'{self.len_lista}']['image_url'] = img_url
+            self.products_dict[self.position]['image_url'] = img_url
         except TypeError:
-            self.products_dict[f'{self.len_lista}']['image_url'] = "Null"
-        self.len_lista += 1
-        self.products()
+            self.products_dict[self.position]['image_url'] = "Null"
+        return
 
 
-a = datetime.now()
-if __name__ == '__main__':
-    products = Date(2, 3)
-
-    for id_product, product in products.products().items():
-        print(f'Produto {int(id_product) + 1}')
-        for key, value in product.items():
-           print(f'{key}: {value}')
-        print()
-    print(datetime.now()-a)

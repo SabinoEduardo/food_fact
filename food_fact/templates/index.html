@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load serializer_tag %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load serializer_tag %}
+
+{% block content %}
     <h1>Produtos</h1>
 
-    <pre>{% json_dumps products %}</pre>
+    <pre>{% json_products products %}</pre>
 
     <div class="pagination">
         <span class="step-links">
@@ -28,6 +23,5 @@
             {% endif %}
         </span>
     </div>
-    
-</body>
-</html>
+
+{% endblock content %}
