@@ -28,7 +28,13 @@ async def _product(page, qtde_product, dict_products):
             if position in dict_products:
                 # Essa condição verifica se no dicionário existe uma chave igual a position
                 # Se sim, o position é somado com 1
+                print(page)
+                print('id do produto', position)
+                print(dict_products[position])
+                print()
+                print(dict_products)
                 position += 1
+                
             
             try:
                 with httpx.Client() as client:
