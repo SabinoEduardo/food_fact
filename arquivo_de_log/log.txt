@@ -26,3 +26,13 @@ A página URL('https://world.openfoodfacts.org//product/54491472/coca-cola-500ml
 Ocorreu um erro no arquivo C:\Users\bilso\meus_projetos\web_scraping\utils\product.py ao tentar acessar a URL('https://world.openfoodfacts.org//product/3175681134935/gerble-sugar-free-lemon-yuzu-shortbread-132g-4-7oz')
 A página URL('https://world.openfoodfacts.org//product/3175681134935/gerble-sugar-free-lemon-yuzu-shortbread-132g-4-7oz') demorou para responder. Verifica se a página esta funcionando.
 
+31/10/2023 20:00:06
+Ocorreu um erro no arquivo C:\Users\bilso\meus_projetos\web_scraping\utils\product.py ao tentar acessar a URL('https://world.openfoodfacts.org//product/3251491787803/gerble-candied-peel-cookie-360g-12-7oz')
+Este produto foi encontrado na página 6
+A página URL('https://world.openfoodfacts.org//product/3251491787803/gerble-candied-peel-cookie-360g-12-7oz') demorou para responder. Verifica se a página esta funcionando.
+
+01/11/2023 08:37:51
+Ocorreu um erro no arquivo C:\Users\bilso\meus_projetos\web_scraping\utils\product.py ao tentar acessar a URL('https://world.openfoodfacts.org//product/3175680015228/levure-de-biere-gerble')
+Este produto foi encontrado na página 1
+A página URL('https://world.openfoodfacts.org//product/3175680015228/levure-de-biere-gerble') demorou para responder. Verifica se a página esta funcionando.
+
