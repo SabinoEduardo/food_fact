@@ -10,7 +10,7 @@ STATUS_CHOICES = [
 ]
 
 class Product(models.Model):
-    code = models.BigIntegerField( null=True, blank=True)
+    code = models.BigIntegerField(null=True, blank=True)
     barcode = models.CharField(max_length=60, null=True, blank=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, null=False, blank=False)
     imported_t = models.DateTimeField(default=timezone.now)

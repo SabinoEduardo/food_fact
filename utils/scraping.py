@@ -15,6 +15,13 @@ class Date:
             :image_url :str
 
         The functions this class return None
+
+        Será adicionado funções para adicionar os seguintes campos:
+            - labels (rótulos: com glutem, sem conservantes etc)
+            - ingredientes
+            - tipo de processamento: (ultraprocessado por exemplo)
+            - Nutrition facts (em 15g)
+
     """
 
     def __init__(self, url, content_html, position, products_dict):

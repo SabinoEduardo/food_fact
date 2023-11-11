@@ -1,0 +1,240 @@
+---
+openapi: 3.0.3
+info:
+  title: Food Fact - OpenAPI 3.0
+  description: "Esta API faz a raspagem da página https://world.openfoodfacts.org/, um banco de dados aberto que contém informações nutricionais sobre vários produtos. \n\nA API coleta as informações sobre os produtos, armazena em um banco de dados relacional e retona os produtos no formatto json de acordo com os endpoints."
+  contact:
+    email: afonsos@yahoo.com
+  version: 1.0.0
+externalDocs:
+  description: Encontre mais opções sobre a API Food Fact
+  url: https://github.com/SabinoEduardo/web_scraping/blob/main/README.md
+servers:
+- url: https://petstore3.swagger.io/api/v3
+tags:
+- name: food fact
+  description: Tudo sobre os produtos
+paths:
+  /:
+    get:
+      tags:
+      - food fact
+      summary: retorna status_code
+      description: Retorna um json com status code e uma mensagem.
+      responses:
+        "200":
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inicio'
+  /products:
+    get:
+      tags:
+      - food fact
+      summary: Lista os produtos
+      description: |-
+        Retorna um objeto Json com dois elementos.
+        - O primeiro elemento contém informações sobre o número de páginas do response e a página atual.
+        - O Segundo elemento é uma lista com informações de 10 produtos.
+      responses:
+        "200":
+          description: Operação realizada com sucesso!
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ListarProdutos'
+        "204":
+          description: Sem conteúdo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SemConteudo'
+  /products/search/:
+    get:
+      tags:
+      - food fact
+      summary: Filtra produto por nome ou manrca
+      description: |-
+        Retorna um objeto Json com três elementos
+        - O primeiro elemento é o valor da tag que foi enviada na request para filtrar proutos. Esse valor pode ser o nome ou a marca do produto.
+        - O segundo elemento contém informações sobre o número de páginas do response e a página atual.
+        - O terceiro elemento é o conteúdo da requisição. Uma lista com um ou vários produtos filtrados.
+      parameters:
+      - name: product_name ou brand
+        in: query
+        description: Tag para filtrar
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Operação realizada com suscesso!
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SearchProduto'
+        "204":
+          description: Sem conteúdo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SemConteudo'
+  /products/{code}:
+    get:
+      tags:
+      - food fact
+      summary: Acha um produto pelo código
+      description: Retorna um único produto ou uma mensagem de erro quando o produto requisitado não existe.
+      parameters:
+      - name: code
+        in: path
+        description: código do produto a retornar
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Produto'
+        "404":
+          description: Produto não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NaoEncotrado'
+components:
+  schemas:
+
+    Inicio:
+      type: object
+      properties:
+        status_code:
+          type: integer
+          format: int32
+          example: 200
+        message:
+          type: string
+          example: API Food Fact
+
+    InfoPage1:
+      type: object
+      properties:
+        currente_page:
+          type: integer
+          format: int32
+          example: 1
+        quantity_page:
+          type: integer
+          example: 60
+
+    SearchValue:
+      type: object
+      properties:
+        search_value:
+          type: string
+          example: ferrero
+          
+    InfoPage2:
+      type: object
+      properties:
+        currente_page:
+          type: integer
+          format: int32
+          example: 1
+        quantity_page:
+          type: integer
+          example: 3
+
+    Produto:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 3608580065340
+        barcode:
+          type: string
+          example: 3608580065340(EAN/EAN-13)
+        status:
+          type: string
+          example: Imported
+        imported_t:
+          type: string
+          example: 01/11/2023 07:31:18
+        url:
+          type: string
+          example: https://world.openfoodfacts.org//product/3608580065340/pate-a-tartiner-noisettes-et-cacao-bonne-maman
+        product_name:
+          type: string
+          example: Pâte à tartiner noisettes et cacao - Bonne Maman - 360 g
+        quantity:
+          type: string
+          example: 360 g
+        categories:
+          type: string
+          example: "Chocolate spreads, Cocoa and hazelnuts spreads"
+        packaging:
+          type: string
+          example: "Glass-jar, Steel-lid, fr:Bocal en verre, fr:Capsule en métal"
+        brands:
+          type: string
+          example: Bonne Maman
+        image_url:
+          type: string
+          example: https://images.openfoodfacts.org/images/products/360/858/006/5340/front_fr.8.400.jpg
+    ListarProdutos:
+      type: object
+      properties:
+        info_page:
+          $ref: '#/components/schemas/InfoPage1'
+        produtos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Produto'
+
+    SearchProduto:
+      type: object
+      properties:
+        search_value:
+          $ref: '#/components/schemas/SearchValue'
+        info_page:
+          $ref: '#/components/schemas/InfoPage2'
+        produtos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Produto'
+
+    SemConteudo:
+      type: object
+      properties:
+        status_code:
+          type: integer
+          format: int32
+          example: 204
+        message:
+          type: string
+          example: Sem conteudo
+
+    NaoEncotrado:
+      type: object
+      properties:
+        status_code:
+          type: integer
+          format: int32
+          example: 404
+        message:
+          type: string
+          example: Produto não encontrado
