@@ -1,1 +1,4 @@
 arquivos
+
+// Configuarar a virtualenv e instalar as libs que estão no requirement.txt
+venv 
