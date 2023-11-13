@@ -24,8 +24,6 @@ def insert_in_to_db(dict_products):
         This function insert in to database all objects created in scraping.py file that was falidated in valide.py file.
     
     """
-    #print()
-    #print(f'{len(dict_products)} produtos foram inserido no banco de dados')
     list_products = list()
     status = ['Imported', 'Draft']
 

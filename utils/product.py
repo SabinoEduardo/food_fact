@@ -27,13 +27,7 @@ async def _product(page, qtde_product, dict_products):
         for position, url in enumerate(list_urls):
 
             if position in dict_products:
-                # Essa condição verifica se no dicionário existe uma chave igual a position
-                # Se sim, o position é somado com 1
-                #print(f'Produto da posição {position}')
-                #print(dict_products[position])
-                #print()
                 position += 1
-                #print(f'Nova Posição {position}')
                 
             
             try:
@@ -57,7 +51,7 @@ async def _product(page, qtde_product, dict_products):
                         )(dict_products)
                     
             except httpx.RequestError as exc:
-                # Caso aconteja um erro durante a requisição da página web, será passado uma mensagem de erro no arquivo log.txt
+                """Caso aconteja um erro durante a requisição da página web, será passado uma mensagem de erro no arquivo log.txt"""
                 with open('arquivo_de_log\log.txt', 'a', encoding='utf-8') as f:
                     f.write(str(datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
                     f.write(
@@ -69,13 +63,11 @@ async def _product(page, qtde_product, dict_products):
                     f.write("\n")
                     f.write("\n")
                 return 
-    #print(f'Existem {len(dict_products)} produtos no dicionário')
-    3print(f'Quantidade requerida: {qtde_product}')
+    
     if len(dict_products) < qtde_product:
         # Essa condição compara o tamanho do dicionário com a quantidade de produtos requisitados.
         page += 1
         qtde_product = qtde_product - len(dict_products)
-        print(f'Faltam {qtde_product} produtos')
         await _product(page, qtde_product, dict_products)
 
     else:
