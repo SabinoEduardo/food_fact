@@ -1,3 +1,5 @@
 arquivos
 venv
+
+/* Configuarar as variaveis de ambiente no arquivo .env */
 .env
