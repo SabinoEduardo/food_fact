@@ -36,3 +36,12 @@ Ocorreu um erro no arquivo C:\Users\bilso\meus_projetos\web_scraping\utils\produ
 Este produto foi encontrado na página 1
 A página URL('https://world.openfoodfacts.org//product/3175680015228/levure-de-biere-gerble') demorou para responder. Verifica se a página esta funcionando.
 
+13/11/2023 08:30:22
+Ocorreu um erro no arquivo C:\Users\bilso\meus_projetos\food_fact\utils\request.py ao tentar acessar a URL('https://world.openfoodfacts.org/1')
+A página URL('https://world.openfoodfacts.org/1') demorou para responder. Verifica se a página esta funcionando.
+
+13/11/2023 09:19:56
+Ocorreu um erro no arquivo C:\Users\bilso\meus_projetos\food_fact\utils\product.py ao tentar acessar a URL('https://world.openfoodfacts.org//product/4056489007180/pain-de-mie-special-sandwich-complet-maitre-jean-pierre')
+Este produto foi encontrado na página 1
+A página URL('https://world.openfoodfacts.org//product/4056489007180/pain-de-mie-special-sandwich-complet-maitre-jean-pierre') demorou para responder. Verifica se a página esta funcionando.
+

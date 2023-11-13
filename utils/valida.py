@@ -33,7 +33,9 @@ def valida_product(prod):
 
     for key, value in copy_dictionario.items():
         if key in prod:
+            #print(f'Produto removido {prod[key]}')
             prod.pop(key)
+            #print()
             
     return prod
    

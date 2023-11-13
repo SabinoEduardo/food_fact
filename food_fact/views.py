@@ -71,8 +71,8 @@ def search(request):
     
     if search_value == '' or not products:
         data = {
-                'status_code': 204,
-                'message': 'Sem conteúdo'
+                'status_code': 404,
+                'message': 'Page not found'
                 }
     else:
         paginator = Paginator(products, 10) # Show 10 contacts per page.

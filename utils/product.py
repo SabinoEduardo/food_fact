@@ -11,7 +11,8 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 
-async def _product(page, qtde_product, dict_products): 
+async def _product(page, qtde_product, dict_products):
+    print(f'Raspagem na página {page}')
     """
         This function receive one list with one or many links of very products. Acess one link at a time e take the information about the product.
 
@@ -28,19 +29,21 @@ async def _product(page, qtde_product, dict_products):
             if position in dict_products:
                 # Essa condição verifica se no dicionário existe uma chave igual a position
                 # Se sim, o position é somado com 1
-                print(page)
-                print('id do produto', position)
-                print(dict_products[position])
-                print()
-                print(dict_products)
+                #print(f'Produto da posição {position}')
+                #print(dict_products[position])
+                #print()
                 position += 1
+                #print(f'Nova Posição {position}')
                 
             
             try:
                 with httpx.Client() as client:
                     response = client.get(url)
                     content_html = BeautifulSoup(response.text, 'html.parser')
-                    
+
+                    print(f'Posição atual {position}')
+                    print()
+
                     date = Date(url, content_html, position, dict_products)
 
                     await asyncio.gather(date.set_url(),
@@ -66,11 +69,13 @@ async def _product(page, qtde_product, dict_products):
                     f.write("\n")
                     f.write("\n")
                 return 
-
+    #print(f'Existem {len(dict_products)} produtos no dicionário')
+    3print(f'Quantidade requerida: {qtde_product}')
     if len(dict_products) < qtde_product:
-        # Essa condição compara o tamanho do dicionário com a quantidade de produtos requaisitados.
+        # Essa condição compara o tamanho do dicionário com a quantidade de produtos requisitados.
         page += 1
         qtde_product = qtde_product - len(dict_products)
+        print(f'Faltam {qtde_product} produtos')
         await _product(page, qtde_product, dict_products)
 
     else:
