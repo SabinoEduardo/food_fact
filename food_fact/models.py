@@ -28,3 +28,12 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'Produto'
         verbose_name_plural = 'Produtos'
+
+    """
+        Será adicionado funções para adicionar os seguintes campos:
+            - labels (rótulos: com glutem, sem conservantes etc)
+            - ingredientes
+            - tipo de processamento: (ultraprocessado por exemplo)
+            - Nutrition facts (em 15g)
+
+    """
