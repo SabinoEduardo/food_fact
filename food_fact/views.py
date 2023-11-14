@@ -85,7 +85,7 @@ def search(request):
     
 def return_data(data):
     """
-        Essa é uma terciária da views.
+        Essa é uma views terciária.
         Ela é chamada em cada view pricipal, recebe o objeto tratado em cada view e o retorna no formato json.
     """
     return JsonResponse(

@@ -1,4 +1,5 @@
 # type : ignore
+from re import T
 from django.db import models
 from django.utils import timezone
 
@@ -16,10 +17,14 @@ class Product(models.Model):
     imported_t = models.DateTimeField(default=timezone.now)
     url = models.URLField(null=True, blank=True)
     product_name = models.CharField(max_length=80, null=True, blank=True)
-    quantity = models.CharField(max_length=10)
+    quantity = models.CharField(max_length=10, null=True, blank=True)
+    ingredients = models.CharField(max_length=80, null=True, blank=True)
+    labels = models.CharField(max_length=60, null=True, blank=True)
     categories = models.CharField(max_length=80, null=True, blank=True)
     packaging = models.CharField(max_length=80, null=True, blank=True)
     brands = models.CharField(max_length=60, null=True, blank=True)
+    processed_foods = models.CharField(max_length=60, null=True, blank=True)
+    country_of_manufacture = models.CharField(max_length=80, null=True, blank=True)
     image_url = models.URLField(null=True, blank=True)
 
     def __str__(self):
@@ -28,3 +33,8 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'Produto'
         verbose_name_plural = 'Produtos'
+
+    """
+        Criar tabela para seguinte variavel
+        - Nutrition facts (em 15g)
+    """

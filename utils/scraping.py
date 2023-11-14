@@ -1,5 +1,9 @@
 # type: ignore
 
+import encodings
+from uu import encode
+
+
 class Date:
     """
         This class create one object of products with the following datas:
@@ -29,6 +33,8 @@ class Date:
         self.position = position
         self.products_dict = products_dict
         self.content_html = content_html
+        self.quantity = ""
+        self.brand = ""
         
 
     async def set_url(self):
@@ -72,10 +78,42 @@ class Date:
             :return: without return
         """
         try:
-            quantity = self.content_html.select_one('#field_quantity_value').text
-            self.products_dict[self.position]['quantity'] = quantity
+            self.quantity = self.content_html.select_one('#field_quantity_value').text
+            self.products_dict[self.position]['quantity'] = self.quantity
         except AttributeError:
             self.products_dict[self.position]['quantity'] = "Null"
+        return
+    
+    async def get_ingredients(self):
+        try:
+            ingredient = self.content_html.select_one('#panel_ingredients_content > div > div > div').text.strip()
+            self.products_dict[self.position]['ingredient'] = ingredient
+        except AttributeError:
+            self.products_dict[self.position]['ingredient'] = "Null"
+        return
+    
+    async def get_processed_foods(self):
+        try:
+            processed_foods = self.content_html.select_one('#panel_nova > li > a > h4').string
+            self.products_dict[self.position]['processed_foods'] = processed_foods.strip()
+        except AttributeError:
+            self.products_dict[self.position]['processed_foods'] = "Null"
+        return
+    
+    async def get_manufactured(self):
+        try:
+            country_of_manufacture = self.content_html.select_one('#field_manufacturing_places_value > a:nth-child(2)').string
+            self.products_dict[self.position]['country_of_manufacture'] = country_of_manufacture.strip()
+        except AttributeError:
+            self.products_dict[self.position]['country_of_manufacture'] = "Null"
+        return
+    
+    async def get_labels(self):
+        try:
+            labels = self.content_html.select_one('#field_labels_value > a:nth-child(1)').string
+            self.products_dict[self.position]['labels'] = labels.strip()
+        except AttributeError:
+            self.products_dict[self.position]['labels'] = "Null"
         return
 
 
@@ -85,8 +123,8 @@ class Date:
             :return: without return
         """
         try:
-            brand = self.content_html.select_one('#field_brands a').text
-            self.products_dict[self.position]['brand'] = brand
+            self.brand = self.content_html.select_one('#field_brands a').text
+            self.products_dict[self.position]['brand'] = self.brand
         except AttributeError:
             self.products_dict[self.position]['brand'] = "Null"
         return
