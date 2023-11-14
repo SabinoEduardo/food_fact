@@ -19,7 +19,7 @@ class Product(models.Model):
     product_name = models.CharField(max_length=80, null=True, blank=True)
     quantity = models.CharField(max_length=10, null=True, blank=True)
     ingredients = models.CharField(max_length=80, null=True, blank=True)
-    labels = models.CharField(max_length=60, null=True, blank=True)
+    labels = models.CharField(max_length=80, null=True, blank=True)
     categories = models.CharField(max_length=80, null=True, blank=True)
     packaging = models.CharField(max_length=80, null=True, blank=True)
     brands = models.CharField(max_length=60, null=True, blank=True)

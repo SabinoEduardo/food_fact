@@ -106,8 +106,13 @@ class Date:
     
     async def get_labels(self):
         try:
-            labels = self.content_html.select_one('#field_labels_value > a:nth-child(1)').string
-            self.products_dict[self.position]['labels'] = labels.strip()
+            labels = ""
+            labels_values = self.content_html.select('a[href^="/label/"]')
+            for i, texto in enumerate(labels_values):
+                labels = labels + texto.text.strip()
+                if i < len(labels_values)-1:
+                    labels += ", "
+            self.products_dict[self.position]['labels'] = labels
         except AttributeError:
             self.products_dict[self.position]['labels'] = "Null"
         return
