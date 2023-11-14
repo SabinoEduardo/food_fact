@@ -39,9 +39,13 @@ def insert_in_to_db(dict_products):
                 url = value['url'],
                 product_name = value['product_name'],
                 quantity = value['quantity'],
+                ingredients = value['ingredient'],
+                labels = value['labels'],
                 categories = value['categories'],
                 packaging = value['packaging'],
                 brands = value['brand'],
+                processed_foods = value['processed_foods'],
+                country_of_manufacture = value['country_of_manufacture'],
                 image_url = value['image_url'],
             )
             )

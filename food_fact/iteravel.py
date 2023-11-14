@@ -14,7 +14,7 @@ def products_iterables(data, current_page, quantity_page, search_value=None):
         """
             O valor de serach é enviada pela função serch da views. 
             
-            - Seach é o valor a ser filtrado (nome ou marca do produto)
+            - Search é o valor a ser filtrado (nome ou marca do produto)
         """
         data_list.append({'seach_value': search_value})
 
@@ -37,9 +37,13 @@ def products_iterables(data, current_page, quantity_page, search_value=None):
         dict_product['url'] = value.url
         dict_product['product_name'] = value.product_name
         dict_product['quantity'] = value.quantity
+        dict_product['ingredients'] = value.ingredient
+        dict_product['labels'] = value.labels
         dict_product['categories'] = value.categories
         dict_product['packaging'] = value.packaging
         dict_product['brands'] = value.brands
+        dict_product['processed_foods'] = value.processed_foods
+        dict_product['country_of_manufacture'] = value.country_of_manufacture
         dict_product['image_url'] = value.image_url
 
         lista_products.append(dict_product.copy())
@@ -64,9 +68,13 @@ def product_iterable(data):
     dict_product['url'] = data.url
     dict_product['product_name'] = data.product_name
     dict_product['quantity'] = data.quantity
+    dict_product['ingredients'] = data.ingredient
+    dict_product['labels'] = data.labels
     dict_product['categories'] = data.categories
     dict_product['packaging'] = data.packaging
     dict_product['brands'] = data.brands
+    dict_product['processed_foods'] = data.processed_foods
+    dict_product['country_of_manufacture'] = data.country_of_manufacture
     dict_product['image_url'] = data.image_url
 
     lista_products = [(dict_product.copy())]

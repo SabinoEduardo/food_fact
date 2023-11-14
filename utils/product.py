@@ -29,22 +29,23 @@ async def _product(page, qtde_product, dict_products):
             if position in dict_products:
                 position += 1
                 
-            
             try:
                 with httpx.Client() as client:
                     response = client.get(url)
-                    content_html = BeautifulSoup(response.text, 'html.parser')
-
-                    print(f'Posição atual {position}')
-                    print()
-
+                    #content_html = BeautifulSoup(response.text, 'html.parser')
+                    content_html = BeautifulSoup(
+                        response, features="lxml", from_encoding="utf-8"
+                        )
+                    
                     date = Date(url, content_html, position, dict_products)
 
                     await asyncio.gather(date.set_url(),
-                        date.get_code(), date.get_barcode(), 
-                        date.get_quantity(), date.get_brands(), 
-                        date.config_name(), date.get_categories(),
-                        date.get_packaging(), date.get_image_url()
+                        date.config_name(), date.get_code(), 
+                        date.get_barcode(), date.get_quantity(), 
+                        date.get_ingredients(), date.get_labels(),
+                        date.get_brands(), date.get_categories(),
+                        date.get_packaging(), date.get_processed_foods(), 
+                        date.get_manufactured(), date.get_image_url(), 
                         )
                     dict_products = await sync_to_async(
                         valida_product, thread_sensitive=True
@@ -52,6 +53,7 @@ async def _product(page, qtde_product, dict_products):
                     
             except httpx.RequestError as exc:
                 """Caso aconteja um erro durante a requisição da página web, será passado uma mensagem de erro no arquivo log.txt"""
+
                 with open('arquivo_de_log\log.txt', 'a', encoding='utf-8') as f:
                     f.write(str(datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
                     f.write(
@@ -63,7 +65,7 @@ async def _product(page, qtde_product, dict_products):
                     f.write("\n")
                     f.write("\n")
                 return 
-    
+
     if len(dict_products) < qtde_product:
         # Essa condição compara o tamanho do dicionário com a quantidade de produtos requisitados.
         page += 1
@@ -79,7 +81,7 @@ async def _product(page, qtde_product, dict_products):
 if __name__ == '__main__':
     a = datetime.now()
     dict_products = dict()
-    products = asyncio.run(_product(2, 100, dict_products))
+    products = asyncio.run(_product(1, 2, dict_products))
     if products:
         for id_product, product in products.items():
             print(f'Produto {int(id_product) + 1}')
