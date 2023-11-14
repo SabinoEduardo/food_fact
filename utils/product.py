@@ -12,7 +12,6 @@ from datetime import datetime
 
 
 async def _product(page, qtde_product, dict_products):
-    print(f'Raspagem na página {page}')
     """
         This function receive one list with one or many links of very products. Acess one link at a time e take the information about the product.
 

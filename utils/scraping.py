@@ -1,9 +1,5 @@
 # type: ignore
 
-import encodings
-from uu import encode
-
-
 class Date:
     """
         This class create one object of products with the following datas:
