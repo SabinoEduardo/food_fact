@@ -49,6 +49,7 @@ A página URL('https://world.openfoodfacts.org//product/4056489007180/pain-de-mi
 Ocorreu um erro no arquivo C:\Users\bilso\meus_projetos\food_fact\utils\product.py ao tentar acessar a URL('https://world.openfoodfacts.org//product/3175681066632/gerble-poppy-lemon-cookie-200g-7-1oz')
 Este produto foi encontrado na página 3
 A página URL('https://world.openfoodfacts.org//product/3175681066632/gerble-poppy-lemon-cookie-200g-7-1oz') demorou para responder. Verifica se a página esta funcionando.
+
 16/11/2023 13:48:41
 Ocorreu um erro no arquivo C:\Users\bilso\meus_projetos\food_fact\utils\product.py ao tentar acessar a URL('https://world.openfoodfacts.org//product/8001505005707/nocciolata-rigoni-di-asiago')
 Este produto foi encontrado na página 1
