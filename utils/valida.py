@@ -15,7 +15,7 @@ settings.USE_TZ = False
 django.setup()
 
 
-def valida_product(prod):
+def valida_product(prod, nutri):
     """
         This function verify if one product exist in database or not. If exist in database the product is delete of dictionary of product.
     """
@@ -33,9 +33,8 @@ def valida_product(prod):
 
     for key, value in copy_dictionario.items():
         if key in prod:
-            #print(f'Produto removido {prod[key]}')
             prod.pop(key)
-            #print()
+            nutri.pop(key)
             
-    return prod
+    return prod, nutri
    

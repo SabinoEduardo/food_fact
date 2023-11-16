@@ -1,5 +1,5 @@
 # type : ignore
-from re import T
+
 from django.db import models
 from django.utils import timezone
 
@@ -11,6 +11,7 @@ STATUS_CHOICES = [
 ]
 
 class Product(models.Model):
+    id = models.AutoField(primary_key=True, unique=True)
     code = models.BigIntegerField(null=True, blank=True)
     barcode = models.CharField(max_length=60, null=True, blank=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, null=False, blank=False)
@@ -34,7 +35,31 @@ class Product(models.Model):
         verbose_name = 'Produto'
         verbose_name_plural = 'Produtos'
 
-    """
-        Criar tabela para seguinte variavel
-        - Nutrition facts (em 15g)
-    """
+class Nutrient(models.Model):
+    
+    energy  = models.CharField(max_length=15, blank=True, null=True)
+    fat = models.CharField(max_length=15, blank=True, null=True)
+    saturated_fat = models.CharField(max_length=15, blank=True, null=True)
+    carbohydrates = models.CharField(max_length=15, blank=True, null=True)
+    sugars = models.CharField(max_length=15, blank=True, null=True)
+    lactose = models.CharField(max_length=15, blank=True, null=True)
+    fiber = models.CharField(max_length=15, blank=True, null=True)
+    proteins = models.CharField(max_length=15, blank=True, null=True)
+    salt = models.CharField(max_length=15, blank=True, null=True)
+    alcohol = models.CharField(max_length=15, blank=True, null=True)
+    vitamina_a = models.CharField(max_length=15, blank=True, null=True)
+    vitamina_b = models.CharField(max_length=15, blank=True, null=True)
+    vitamina_c = models.CharField(max_length=15, blank=True, null=True)
+    vitamina_d = models.CharField(max_length=15, blank=True, null=True)
+    vitamina_e = models.CharField(max_length=15, blank=True, null=True)
+    calcium = models.CharField(max_length=15, blank=True, null=True)
+    
+    id_product = models.ForeignKey(
+        Product, 
+        on_delete=models.CASCADE, 
+        blank=False, 
+        null=False
+        )
+
+    class Meta:
+        verbose_name = 'Nutriente'

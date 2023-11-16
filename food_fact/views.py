@@ -1,4 +1,4 @@
-from food_fact.models import Product
+from food_fact.models import Product, Nutrient
 from django.core.paginator import Paginator
 from food_fact import iteravel
 from django.db.models import Q

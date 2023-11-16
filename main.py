@@ -10,7 +10,8 @@ from utils.product import _product
 
 async def main(page, qtde_product):
     dict_products = dict()
-    await (_product(page, qtde_product, dict_products)) 
+    nutrition_dict = dict()
+    await (_product(page, qtde_product, dict_products, nutrition_dict)) 
     return
 
 if __name__ == '__main__':

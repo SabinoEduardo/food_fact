@@ -24,11 +24,13 @@ class Date:
 
     """
 
-    def __init__(self, url, content_html, position, products_dict):
+    def __init__(self, url, content_html, position, products_dict, nutrition_dict):
         self.url = url
         self.position = position
         self.products_dict = products_dict
+        self.nutrition_dict = nutrition_dict
         self.content_html = content_html
+        self.name_product = ""
         self.quantity = ""
         self.brand = ""
         
@@ -136,8 +138,8 @@ class Date:
             :return: without return
         """
         try:
-            name_product = self.content_html.select_one('[itemscope] h1').text
-            self.products_dict[self.position]['product_name'] = name_product
+            self.name_product = self.content_html.select_one('[itemscope] h1').text
+            self.products_dict[self.position]['product_name'] = self.name_product
         except AttributeError:
             self.products_dict[self.position]['product_name'] = "Null"
         return
@@ -177,5 +179,57 @@ class Date:
         except TypeError:
             self.products_dict[self.position]['image_url'] = "Null"
         return
+    
 
+    async def get_nutrition_facts(self):
+        """
+            Essa função define os valores dos nutrientes dos produtos.
+            Os nutriente são os da lista abaixo
+        """
+        
+        # lista contendo todos os nutriente de acordo com a tabela de nutrientes do DB
+        nutrients_of_db = ['Energy', 'Fat', 'Saturated fat', 'Carbohydrates', 
+                               'Sugars', 'Lactose', 'Fiber', 'Proteins', 'Salt', 
+                               'Alcohol', 'Vitamina A', 'Vitamina B', 'Vitamina C', 
+                               'Vitamina D', 'Vitamina E', 'Calcium']
+        
+        list_nutrition_names = list()
+        list_nutrition_values = list()
+        dict_nutri_info = dict()
 
+        self.nutrition_dict[self.position] = {}
+        dict_nutri_info['product_name'] = self.name_product
+
+        try:
+            # Seleciona todas os nomes dos nutrientes e adicona na lista 
+            nutritions_name_tag = self.content_html.select('#panel_nutrition_facts_table_content > div > table > tbody > tr > td:nth-child(1) > span')
+            #print(nutritions_name_tag)
+            for nutrition_name in nutritions_name_tag:
+                list_nutrition_names.append(nutrition_name.text.strip())
+
+            # Seleciona todos os valores do nutriente e adiciona em uma lista
+            nutritions_value_tag = self.content_html.select('#panel_nutrition_facts_table_content > div > table > tbody > tr > td:nth-child(2) > span')
+            
+            for nutrition_value in nutritions_value_tag:
+                list_nutrition_values.append(nutrition_value.text.strip())
+
+            # Adiciona informações nutricionais para o dicionário dict_nutri_info
+            for nutri_db in nutrients_of_db:
+
+                # Verifica se cada nome do nutriente do DB está presente na lista de nutrientes que veio do scraping
+                if nutri_db in list_nutrition_names:
+                    pos = list_nutrition_names.index(nutri_db)
+                    _value = list_nutrition_values[pos].strip()
+                else:
+                    _value = "Null"
+
+                nutri_db = nutri_db.lower()
+                dict_nutri_info[nutri_db] = _value
+
+            self.nutrition_dict[self.position] = dict_nutri_info
+
+        except AttributeError:
+            for nutri in nutrients_of_db:
+                dict_nutri_info[nutri] = "Null"
+            self.nutrition_dict[self.position] = dict_nutri_info
+        return

@@ -1,7 +1,44 @@
 # type: ignore
 
-def products_iterables(data, current_page, quantity_page, search_value=None):
+def get_nutrients(id):
+    """
+        Essa função define um dicionário com todos os nutrientes de um produto
+        Nutrientes com valres "Null" são deletados do dicionário
+    """
+    from food_fact.models import Nutrient
 
+    dict_nutrients = dict()
+    copy_dictionario = dict()
+
+    nutri = Nutrient.objects.get(id_product=id)
+    dict_nutrients['energy'] = nutri.energy
+    dict_nutrients['fat'] = nutri.fat
+    dict_nutrients['saturated fat'] = nutri.saturated_fat
+    dict_nutrients['carbohydrates'] = nutri.carbohydrates
+    dict_nutrients['sugars'] = nutri.sugars
+    dict_nutrients['lactose'] = nutri.lactose
+    dict_nutrients['fiber'] = nutri.fiber
+    dict_nutrients['proteins'] = nutri.proteins
+    dict_nutrients['salt'] = nutri.salt
+    dict_nutrients['alcohol'] = nutri.alcohol
+    dict_nutrients['vitamina A'] = nutri.vitamina_a
+    dict_nutrients['vitamina B'] = nutri.vitamina_b
+    dict_nutrients['vitamina C'] = nutri.vitamina_c
+    dict_nutrients['vitamina D'] = nutri.vitamina_d
+    dict_nutrients['vitamina E'] = nutri.vitamina_e
+    dict_nutrients['calcium'] = nutri.calcium
+
+    for _key, value in dict_nutrients.items():
+        if value == "Null":
+            copy_dictionario[_key] = value
+
+    for _key, value in copy_dictionario.items():
+        dict_nutrients.pop(_key)
+    
+    return dict_nutrients
+
+
+def products_iterables(data, current_page, quantity_page, search_value=None):
     """
         Essa função tranforma o objeto product em iterável.
 
@@ -37,14 +74,17 @@ def products_iterables(data, current_page, quantity_page, search_value=None):
         dict_product['url'] = value.url
         dict_product['product_name'] = value.product_name
         dict_product['quantity'] = value.quantity
-        dict_product['ingredients'] = value.ingredient
+        dict_product['ingredients'] = value.ingredients
         dict_product['labels'] = value.labels
         dict_product['categories'] = value.categories
         dict_product['packaging'] = value.packaging
         dict_product['brands'] = value.brands
         dict_product['processed_foods'] = value.processed_foods
-        dict_product['country_of_manufacture'] = value.country_of_manufacture
+        dict_product['country_or_region_of_manufacture'] = value.country_of_manufacture
         dict_product['image_url'] = value.image_url
+
+        nutri = get_nutrients(value.id)
+        dict_product['nutrients'] = nutri
 
         lista_products.append(dict_product.copy())
 
@@ -76,6 +116,9 @@ def product_iterable(data):
     dict_product['processed_foods'] = data.processed_foods
     dict_product['country_of_manufacture'] = data.country_of_manufacture
     dict_product['image_url'] = data.image_url
+
+    nutri = get_nutrients(data.id)
+    dict_product['nutrients'] = nutri
 
     lista_products = [(dict_product.copy())]
     return lista_products
