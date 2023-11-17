@@ -33,7 +33,7 @@ Para acessar a API:
 Os endpoints da API são:
 - `GET /`: Retorna um Status: 200 e uma Mensagem "API Food Fact";
 - `GET /products`: Lista todos os produtos da base de dados, separando por página, cada página terá 10 produtos;
-- `GET /products/search`: Filtra produto através do nome ou produto;
+- `GET /products/search`: Filtra produto através do nome ou marca do produto (search/?q=nome_do_produto);
 - `GET /products/code`: Obtém a informação somente de um produto. Code é um número iteiro;
 
 Foi utilizado o sistema de Paginação para exibir na interface da API, são exibidos 10 produtos por página. Para mudar outras páginas informa o seguinte caminho: http://127.0.0.1:8000/products/?page=numero_da_pagina
