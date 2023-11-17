@@ -27,7 +27,7 @@ Todas as funões de test dos endpoints e do banco do banco de dados estão no ar
 
 ### Rodar o programa
 Para acessar a API:
-- Acessar o serviço em [https://foodfact-production.up.railway.app/]
+- Acessar o serviço em (https://foodfact-production.up.railway.app/)
 - Exibir as páginas de acordo com os endpoints
 
 Os endpoints da API são:
