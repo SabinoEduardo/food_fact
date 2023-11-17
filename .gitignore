@@ -1,4 +1,6 @@
 arquivos
+
+/* Instalar virtualenv e baixar as libs que estão no requirements */
 venv
 
 /* Configuarar as variaveis de ambiente no arquivo .env */
